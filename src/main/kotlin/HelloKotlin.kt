@@ -1,9 +1,5 @@
 package br.dev.ardc.kotlinsandbox
 
-class HelloKotlin {
-
-}
-
 /***
  * a standalone function that prints a given name.
  */
