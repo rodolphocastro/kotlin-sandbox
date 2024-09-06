@@ -57,4 +57,42 @@ class HelloKotlinTests  {
             assert(nameIsEvenWithWhen(it.first) == it.second)
         }
     }
+
+    @Test
+    fun `sumRanges returns the sum of all numbers up to its biggest one`(): Unit {
+        val cases = listOf(
+            Pair(1, 1),
+            Pair(2, 3),
+            Pair(3, 6),
+            Pair(4, 10),
+            Pair(5, 15),
+            Pair(6, 21),
+            Pair(7, 28),
+            Pair(8, 36),
+            Pair(9, 45),
+            Pair(10, 55)
+        )
+        cases.forEach {
+            assert(sumRanges(it.first) == it.second)
+        }
+    }
+
+    @Test
+    fun `sumOddsRange returns the sum of all odd numbers up to its biggest one`(): Unit {
+        val cases = listOf(
+            Pair(1, 1),
+            Pair(2, 1),
+            Pair(3, 4),
+            Pair(4, 4),
+            Pair(5, 9),
+            Pair(6, 9),
+            Pair(7, 16),
+            Pair(8, 16),
+            Pair(9, 25),
+            Pair(10, 25)
+        )
+        cases.forEach {
+            assert(sumOddsRange(it.first) == it.second)
+        }
+    }
 }

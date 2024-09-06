@@ -60,3 +60,28 @@ fun nameIsEvenWithWhen(name: String): Boolean {
         else -> false
     }
 }
+
+/**
+ * returns the sum of all numbers, one by one, in a range starting at 1.
+ */
+fun sumRanges(maxLimit: Int): Int {
+    val rangeOfValue = 1 .. maxLimit    // range declaration
+    var result = 0
+    // iterating with a for loop
+    for (value in rangeOfValue) {
+        result += value
+    }
+    return result
+}
+
+/**
+ * returns the sum of all odd numbers, one by one, in a range starting at 1.
+ */
+fun sumOddsRange(maxLimit: Int): Int {
+    val rangeOfValues = 1 .. maxLimit step 2 // step allows you to skip values in a range
+    var result = 0;
+    rangeOfValues.forEach {
+        result += it
+    }
+    return result
+}
