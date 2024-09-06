@@ -95,4 +95,63 @@ class HelloKotlinTests  {
             assert(sumOddsRange(it.first) == it.second)
         }
     }
+
+    @Test
+    fun `appendAWhile must return a number of As based on its runs`(): Unit {
+        val cases = listOf(
+            Pair(1, "a"),
+            Pair(2, "aa"),
+            Pair(3, "aaa"),
+            Pair(4, "aaaa"),
+            Pair(5, "aaaaa"),
+            Pair(6, "aaaaaa"),
+            Pair(7, "aaaaaaa"),
+            Pair(8, "aaaaaaaa"),
+            Pair(9, "aaaaaaaaa"),
+            Pair(10, "aaaaaaaaaa")
+        )
+        cases.forEach {
+            assert(appendAWhile(it.first) == it.second)
+        }
+    }
+
+    @Test
+    fun `appendAWhile doesn't accept runs lower or equal to zero`(): Unit {
+        val invalidInputs = listOf(-1, -2, -3, -4, -5)
+        invalidInputs.forEach {
+            assertThrows<IllegalArgumentException> {
+                appendAWhile(it)
+            }
+        }
+    }
+
+    @Test
+    fun `appenbdADoWhile must return a number of As based on its runs`(): Unit {
+        val cases = listOf(
+            Pair(0, "a"),       // note how this is different than the previous function
+            Pair(1, "a"),
+            Pair(2, "aa"),
+            Pair(3, "aaa"),
+            Pair(4, "aaaa"),
+            Pair(5, "aaaaa"),
+            Pair(6, "aaaaaa"),
+            Pair(7, "aaaaaaa"),
+            Pair(8, "aaaaaaaa"),
+            Pair(9, "aaaaaaaaa"),
+            Pair(10, "aaaaaaaaaa")
+        )
+        cases.forEach {
+            assert(appendADoWhile(it.first) == it.second)
+        }
+    }
+
+    @Test
+    fun `appendADoWhile should not accept amounts lower than zero`(): Unit {
+        val invalidInputs = listOf(-1, -2, -3, -4, -5)
+        invalidInputs.forEach {
+            assertThrows<IllegalArgumentException> {
+                appendADoWhile(it)
+            }
+        }
+    }
 }

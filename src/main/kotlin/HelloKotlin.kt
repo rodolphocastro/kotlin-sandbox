@@ -85,3 +85,36 @@ fun sumOddsRange(maxLimit: Int): Int {
     }
     return result
 }
+
+/**
+ * appends A using a while loop, starting at zero
+ */
+fun appendAWhile(amountOfRuns: Int = 2): String {
+    if (amountOfRuns < 0) throw IllegalArgumentException("Amount of runs must be greater than 0")
+    var runs = 0
+    var result = ""
+    // while loops may not be run depending on the condition
+    while (runs < amountOfRuns) {
+        runs++
+        result += "a"
+    }
+
+    return result
+}
+
+/**
+ * appends A using a do-while loop, starting at zero.
+ */
+fun appendADoWhile(amountOfRuns: Int = 2): String {
+    if (amountOfRuns < 0) throw IllegalArgumentException("Amount must be at least zero")
+
+    var runs = 0
+    var result = ""
+    // do runs at least once, no matter what.
+    do {
+        runs++
+        result += "a"
+    } while (runs < amountOfRuns)
+
+    return result
+}
