@@ -1,4 +1,5 @@
 import br.dev.ardc.kotlinsandbox.aStandaloneFunction
+import br.dev.ardc.kotlinsandbox.valsAndVars
 import org.junit.jupiter.api.assertThrows
 import kotlin.test.Test
 
@@ -18,5 +19,10 @@ class HelloKotlinTests  {
                 aStandaloneFunction(it)
             }
         }
+    }
+
+    @Test
+    fun `vals and vars are ways to declare variables`() {
+        assert(valsAndVars() > 0)
     }
 }
