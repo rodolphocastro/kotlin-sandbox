@@ -154,4 +154,23 @@ class HelloKotlinTests  {
             }
         }
     }
+
+    @Test
+    fun `addTwoNumbers should return the sum of its parameters`(): Unit {
+        val cases = listOf(
+            Triple(1, 1, 2),
+            Triple(2, 2, 4),
+            Triple(3, 3, 6),
+            Triple(4, 4, 8),
+            Triple(5, 5, 10),
+            Triple(6, 6, 12),
+            Triple(7, 7, 14),
+            Triple(8, 8, 16),
+            Triple(9, 9, 18),
+            Triple(10, 10, 20)
+        )
+        cases.forEach {
+            assert(addTwoNumbers(it.first, it.second) == it.third)
+        }
+    }
 }

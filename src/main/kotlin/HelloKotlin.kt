@@ -118,3 +118,9 @@ fun appendADoWhile(amountOfRuns: Int = 2): String {
 
     return result
 }
+
+/**
+ * functions can also be declared in a single line.
+ * this one just returns the sum of its parameters.
+ */
+fun addTwoNumbers(x: Int, y: Int) = x + y
