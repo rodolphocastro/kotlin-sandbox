@@ -20,3 +20,16 @@ class Location(val latitude: Double, val longitude: Double) {
      */
     constructor() : this(0.0, 0.0)
 }
+
+/**
+ * representation of an address, optional when creating a sighting.
+ */
+data class Address(
+    val streetName: String,
+    val referencePoint: String = "",
+)
+{
+    init {
+        require(streetName.isNotBlank()) { "streetName must not be blank" }
+    }
+}

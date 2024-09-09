@@ -1,5 +1,6 @@
 package domain
 
+import br.dev.ardc.kotlinsandbox.domain.Address
 import br.dev.ardc.kotlinsandbox.domain.Location
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
@@ -32,5 +33,25 @@ class LocationTests {
         assertThrows<IllegalArgumentException> {
             Location(0.0, 181.0)
         }
+    }
+}
+
+class AddressTests {
+    @Test
+    fun `an Address always requires a streetName`(): Unit {
+        assertThrows<IllegalArgumentException> {
+            Address("")
+        }
+    }
+
+    @Test
+    fun `an Address should be copyable into a new instance`(): Unit {
+        val address = Address("street")
+        val newAddress = address.copy(
+            referencePoint = "reference"
+        )
+        assert(address.referencePoint == "")
+        assert(newAddress.streetName == "street")
+        assert(newAddress.referencePoint == "reference")
     }
 }
