@@ -5,7 +5,7 @@ package br.dev.ardc.kotlinsandbox.domain
  * @param latitude the latitude of the location
  * @param longitude the longitude of the location
  */
-class Location(val latitude: Double, val longitude: Double) {
+open class Location(val latitude: Double, val longitude: Double) {
 
     /**
      * initialization logic for a Location.
@@ -19,6 +19,27 @@ class Location(val latitude: Double, val longitude: Double) {
      * special constructor for a blank location.
      */
     constructor() : this(0.0, 0.0)
+
+    /**
+     * calculates the distance, in double, between this location and another one.
+     */
+    fun distanceTo(otherLocation: Location): Double {
+
+        val earthRadius = 6371e3 // Earth radius in meters
+
+        val lat1 = Math.toRadians(this.latitude)
+        val lat2 = Math.toRadians(otherLocation.latitude)
+        val deltaLat = Math.toRadians(otherLocation.latitude - this.latitude)
+        val deltaLon = Math.toRadians(otherLocation.longitude - this.longitude)
+
+        val a =
+            Math.sin(deltaLat / 2) * Math.sin(deltaLat / 2) + Math.cos(lat1) * Math.cos(lat2) * Math.sin(deltaLon / 2) * Math.sin(
+                deltaLon / 2
+            )
+        val c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
+
+        return earthRadius * c
+    }
 }
 
 /**
@@ -27,9 +48,21 @@ class Location(val latitude: Double, val longitude: Double) {
 data class Address(
     val streetName: String,
     val referencePoint: String = "",
-)
-{
+) {
     init {
         require(streetName.isNotBlank()) { "streetName must not be blank" }
     }
+}
+
+/**
+ * a location that has been decorated with an address.
+ */
+class DecoratedLocation(baseLocation: Location, val address: Address) :
+    Location(baseLocation.latitude, baseLocation.longitude) {
+
+    val displayName: String
+        get() {
+            return "[%.2f,%.2f] @ ${address.streetName}".format(latitude, longitude)
+        }
+
 }
