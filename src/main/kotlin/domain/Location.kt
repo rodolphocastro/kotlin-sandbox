@@ -60,9 +60,36 @@ data class Address(
 class DecoratedLocation(baseLocation: Location, val address: Address) :
     Location(baseLocation.latitude, baseLocation.longitude) {
 
+    companion object {
+        /**
+         * Special Street Name used for empty addresses.
+         */
+        const val SPECIAL_STREET_NAME = "Placeholder Avenue"
+
+        /**
+         * creates a DecoratedLocation from a Location without a placeholder Address.
+         */
+        fun fromLocation(location: Location): DecoratedLocation {
+            return DecoratedLocation(location, Address(SPECIAL_STREET_NAME))
+        }
+    }
+
     val displayName: String
         get() {
             return "[%.2f,%.2f] @ ${address.streetName}".format(latitude, longitude)
         }
 
+}
+
+/**
+ * util to hold functions common to all Locations.
+ */
+object LocationUtil {
+
+    /**
+     * reports the distance between two different locations.
+     */
+    fun distanceBetween(location1: Location, location2: Location): Double {
+        return location1.distanceTo(location2)
+    }
 }

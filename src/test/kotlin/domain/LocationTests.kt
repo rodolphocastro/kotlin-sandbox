@@ -3,6 +3,7 @@ package domain
 import br.dev.ardc.kotlinsandbox.domain.Address
 import br.dev.ardc.kotlinsandbox.domain.DecoratedLocation
 import br.dev.ardc.kotlinsandbox.domain.Location
+import br.dev.ardc.kotlinsandbox.domain.LocationUtil
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 
@@ -81,5 +82,23 @@ class DecoratedLocationTests {
         val address = Address("street")
         val decoratedLocation = DecoratedLocation(location, address)
         assert(decoratedLocation.displayName == "[1.12,2.12] @ street")
+    }
+
+    @Test
+    fun `fromLocation companion function creates a DecoratedLocation from a Location with an empty address but with the Location's data`(): Unit {
+        val location = Location(1.0, 2.0)
+        val decoratedLocation = DecoratedLocation.fromLocation(location)
+        assert(decoratedLocation.latitude == 1.0)
+        assert(decoratedLocation.longitude == 2.0)
+        assert(decoratedLocation.address.streetName == DecoratedLocation.SPECIAL_STREET_NAME)
+    }
+}
+
+class LocationUtilTests {
+    @Test
+    fun `distanceBetween location should behave the same as distanceTo between two Locations`(): Unit {
+        val location1 = Location(0.0, 0.0)
+        val location2 = Location(0.0, 1.0)
+        assert(LocationUtil.distanceBetween(location1, location2) == location1.distanceTo(location2))
     }
 }
