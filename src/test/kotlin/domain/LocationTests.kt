@@ -4,6 +4,7 @@ import br.dev.ardc.kotlinsandbox.domain.Address
 import br.dev.ardc.kotlinsandbox.domain.DecoratedLocation
 import br.dev.ardc.kotlinsandbox.domain.Location
 import br.dev.ardc.kotlinsandbox.domain.LocationUtil
+import br.dev.ardc.kotlinsandbox.domain.returnsAOrBFromType
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 
@@ -91,6 +92,27 @@ class DecoratedLocationTests {
         assert(decoratedLocation.latitude == 1.0)
         assert(decoratedLocation.longitude == 2.0)
         assert(decoratedLocation.address.streetName == DecoratedLocation.SPECIAL_STREET_NAME)
+    }
+
+    @Test
+    fun `as an implementer of Printable the print method should return something`(): Unit {
+        val location = Location(1.0, 2.0)
+        val decoratedLocation = DecoratedLocation.fromLocation(location)
+        assert(decoratedLocation.print().isNotEmpty())
+    }
+
+    @Test
+    fun `as an implementer of Printable the defaultString method should equal to its toString by default`(): Unit {
+        val location = Location(1.0, 2.0)
+        val decoratedLocation = DecoratedLocation.fromLocation(location)
+        assert(decoratedLocation.defaultString() == decoratedLocation.toString())
+    }
+
+    @Test
+    fun `returnsAOrB should return A if the parameter is printable`(): Unit {
+        val location = Location(1.0, 2.0)
+        val decoratedLocation = DecoratedLocation.fromLocation(location)
+        assert(returnsAOrBFromType(decoratedLocation) == "A")
     }
 }
 

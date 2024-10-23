@@ -58,7 +58,7 @@ data class Address(
  * a location that has been decorated with an address.
  */
 class DecoratedLocation(baseLocation: Location, val address: Address) :
-    Location(baseLocation.latitude, baseLocation.longitude) {
+    Location(baseLocation.latitude, baseLocation.longitude), Printable {
 
     companion object {
         /**
@@ -79,6 +79,9 @@ class DecoratedLocation(baseLocation: Location, val address: Address) :
             return "[%.2f,%.2f] @ ${address.streetName}".format(latitude, longitude)
         }
 
+    override fun print(): String {
+        return "DecoratedLocation: $displayName"
+    }
 }
 
 /**
@@ -91,5 +94,32 @@ object LocationUtil {
      */
     fun distanceBetween(location1: Location, location2: Location): Double {
         return location1.distanceTo(location2)
+    }
+}
+
+/**
+ * defines the properties na object must have to be printable.
+ */
+interface Printable {
+    /**
+     * returns a printable version of the object.
+     */
+    fun print(): String
+
+    /**
+     * returns a default string for the object.
+     */
+    fun defaultString(): String {
+        return this.toString()
+    }
+}
+
+/**
+ * a function that returns a string based on the type of the parameter.
+ */
+internal fun returnsAOrBFromType(type: Any): String {
+    return when(type) {
+        is Printable -> "A"
+        else -> "B"
     }
 }
