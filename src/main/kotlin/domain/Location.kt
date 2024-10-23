@@ -5,7 +5,15 @@ package br.dev.ardc.kotlinsandbox.domain
  * @param latitude the latitude of the location
  * @param longitude the longitude of the location
  */
-open class Location(val latitude: Double, val longitude: Double) {
+open class Location(val latitude: Double, val longitude: Double, val accessType: LocationType = LocationType.PUBLIC) {
+
+    /**
+     * the type of location, either private or public.
+     */
+    enum class LocationType {
+        PRIVATE,
+        PUBLIC
+    }
 
     /**
      * initialization logic for a Location.

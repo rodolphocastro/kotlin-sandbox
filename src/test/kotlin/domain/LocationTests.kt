@@ -46,6 +46,14 @@ class LocationTests {
 
         assert(Location().distanceTo(Location()) == 0.toDouble())
     }
+
+    @Test
+    fun `a Location's access type should be either public or private`(): Unit {
+        val location = Location(1.0, 2.0, Location.LocationType.PUBLIC)
+        val privateLocation = Location(1.0, 2.0, Location.LocationType.PRIVATE)
+        assert(location.accessType == Location.LocationType.PUBLIC)
+        assert(privateLocation.accessType == Location.LocationType.PRIVATE)
+    }
 }
 
 class AddressTests {
