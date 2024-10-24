@@ -7,6 +7,7 @@ import br.dev.ardc.kotlinsandbox.domain.LocationUtil
 import br.dev.ardc.kotlinsandbox.domain.returnsAOrBFromType
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
+import kotlin.test.assertTrue
 
 class LocationTests {
     @Test
@@ -134,6 +135,13 @@ class DecoratedLocationTests {
         assert(locationMap.containsKey(location))
         assert(locationSet.contains(location))
     }
+
+    @Test
+    fun `locations should be usable within lambda functions`(): Unit {
+        val location = DecoratedLocation(Location(1.0, 2.0), Address("street"))
+        val extractName = { loc: DecoratedLocation -> loc.displayName }
+        assert(extractName(location) == location.displayName)
+    }
 }
 
 class LocationUtilTests {
@@ -142,5 +150,18 @@ class LocationUtilTests {
         val location1 = Location(0.0, 0.0)
         val location2 = Location(0.0, 1.0)
         assert(LocationUtil.distanceBetween(location1, location2) == location1.distanceTo(location2))
+    }
+
+    @Test
+    fun `extractDisplayName should execute its postHandle`(): Unit {
+        val location = DecoratedLocation(Location(1.0, 2.0), Address("street"))
+        var wasCalled = false
+        // lambda that sets the variable to true
+        val postHandle = { _: DecoratedLocation -> wasCalled = true }
+        assert(LocationUtil.extractDisplayName(location, postHandle).isNotEmpty())
+        assertTrue(wasCalled)
+        wasCalled = false
+        LocationUtil.extractDisplayName(location) { _ -> wasCalled = true }
+        assertTrue(wasCalled)
     }
 }

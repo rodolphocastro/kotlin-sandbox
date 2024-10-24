@@ -103,6 +103,10 @@ object LocationUtil {
     fun distanceBetween(location1: Location, location2: Location): Double {
         return location1.distanceTo(location2)
     }
+
+    fun extractDisplayName(loc: DecoratedLocation, postHandle: (loc: DecoratedLocation)-> Unit): String {
+        return loc.displayName.also { postHandle(loc) }
+    }
 }
 
 /**
