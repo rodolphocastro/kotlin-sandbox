@@ -122,6 +122,18 @@ class DecoratedLocationTests {
         val decoratedLocation = DecoratedLocation.fromLocation(location)
         assert(returnsAOrBFromType(decoratedLocation) == "A")
     }
+
+    @Test
+    fun `locations should be storable on lists, maps and sets`(): Unit {
+        val location = Location(1.0, 2.0)
+        val decoratedLocation = DecoratedLocation.fromLocation(location)
+        val locationList = listOf(location)
+        val locationMap = mapOf(location to decoratedLocation)
+        val locationSet = setOf(location)
+        assert(locationList.contains(location))
+        assert(locationMap.containsKey(location))
+        assert(locationSet.contains(location))
+    }
 }
 
 class LocationUtilTests {
